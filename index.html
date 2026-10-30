@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#07358f">
+    <meta
+      name="description"
+      content="Trabajo final de JavaScript: cajero automático desarrollado con JavaScript, HTML y CSS."
+    >
+    <title>Cajero Automático | Trabajo Final de JavaScript</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-bg" aria-hidden="true"></div>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#inicio" id="brandHome" aria-label="Inicio">
+          <img class="topbar-logo" src="img/bcp.png" alt="BCP">
+        </a>
+        <div class="topbar-label">TRABAJO FINAL DE JAVASCRIPT</div>
+      </header>
+
+      <main>
+        <section id="welcomeScreen" class="screen welcome-screen active">
+          <div class="welcome-copy">
+            <img class="brand-large" src="img/bcp.png" alt="Logotipo de BCP">
+            <p class="eyebrow">CAJERO AUTOMÁTICO</p>
+            <h1>Bienvenido al BCP</h1>
+            <p class="lead">Selecciona tu cuenta para comenzar</p>
+            <div class="mini-features" aria-label="Características">
+              <span>⌁ Operaciones rápidas</span>
+              <span>◷ Saldo actualizado</span>
+            </div>
+          </div>
+
+          <div class="panel account-panel">
+            <div class="panel-heading">
+              <div>
+                <span class="step-label">PASO 01</span>
+                <h2>Selecciona tu cuenta</h2>
+              </div>
+              <span class="heading-icon" aria-hidden="true">◉</span>
+            </div>
+            <div id="accountList" class="account-list"></div>
+            <div id="welcomeMessage" class="notice hidden" role="status"></div>
+            <button id="startButton" class="btn btn-primary btn-full" type="button" disabled>
+              Continuar <span aria-hidden="true">›</span>
+            </button>
+            <div class="credentials">
+              <b>Datos de acceso para la demostración</b>
+              <div><span>Mali</span><code>44788834 · 1234</code></div>
+              <div><span>Gera</span><code>10247439 · 5678</code></div>
+              <div><span>Sabi</span><code>98005362 · 9102</code></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="loginScreen" class="screen compact-screen hidden">
+          <div class="panel login-panel">
+            <button class="back-button" type="button" data-go="welcomeScreen">
+              ← Volver
+            </button>
+            <div class="login-emblem" aria-hidden="true">♟</div>
+            <h2>Ingresar contraseña</h2>
+            <p>Cuenta seleccionada: <b id="selectedName">Mali</b></p>
+            <p class="muted" id="selectedDni"></p>
+
+            <form id="loginForm" novalidate>
+              <label for="passwordInput">Contraseña</label>
+              <div class="password-wrap">
+                <input
+                  id="passwordInput"
+                  type="password"
+                  inputmode="numeric"
+                  maxlength="4"
+                  placeholder="••••"
+                  autocomplete="off"
+                  aria-describedby="loginMessage"
+                >
+                <button
+                  id="togglePassword"
+                  class="eye-button"
+                  type="button"
+                  aria-label="Mostrar contraseña"
+                >◉</button>
+              </div>
+              <div id="loginMessage" class="notice hidden" role="alert"></div>
+              <button class="btn btn-primary btn-full" type="submit">
+                Ingresar <span aria-hidden="true">›</span>
+              </button>
+            </form>
+            <button class="text-button" type="button" data-go="welcomeScreen">
+              Volver a seleccionar cuenta
+            </button>
+          </div>
+        </section>
+
+        <section id="atmScreen" class="screen atm-screen hidden">
+          <aside class="atm-sidebar">
+            <div class="sidebar-brand">
+              <span class="brand-symbol" aria-hidden="true">❯</span>BCP
+            </div>
+            <div class="user-mini">
+              <div id="userInitial" class="avatar" aria-hidden="true">M</div>
+              <div>
+                <b id="userName">Mali</b>
+                <small id="userDni">DNI: 44788834</small>
+              </div>
+            </div>
+            <nav class="atm-nav" aria-label="Operaciones de cuenta">
+              <span class="nav-caption">MENÚ PRINCIPAL</span>
+              <button class="nav-item active" type="button" data-operation="menu">
+                ⌂ <span>Resumen</span>
+              </button>
+              <button class="nav-item" type="button" data-operation="balance">
+                ▣ <span>Consultar saldo</span>
+              </button>
+              <button class="nav-item" type="button" data-operation="deposit">
+                ＋ <span>Ingresar dinero</span>
+              </button>
+              <button class="nav-item" type="button" data-operation="withdraw">
+                − <span>Retirar dinero</span>
+              </button>
+              <button class="nav-item" type="button" data-operation="movements">
+                ▤ <span>Últimos movimientos</span>
+              </button>
+            </nav>
+            <button id="logoutButton" class="logout-button" type="button">
+              ↪ Cerrar sesión
+            </button>
+          </aside>
+
+          <div class="atm-main">
+            <header class="atm-header">
+              <div class="sidebar-brand mobile-brand">
+                <span class="brand-symbol" aria-hidden="true">❯</span>BCP
+              </div>
+              <div>
+                <p class="eyebrow">TRABAJO FINAL DE JAVASCRIPT</p>
+                <h1 id="pageTitle">Resumen de tu cuenta</h1>
+                <p id="pageSubtitle">Selecciona una operación para continuar.</p>
+              </div>
+              <div id="currentDate" class="current-date"></div>
+            </header>
+            <div id="globalMessage" class="notice hidden" role="status"></div>
+            <div id="operationContent" class="operation-content"></div>
+            <footer class="atm-footer">
+              CAJERO AUTOMÁTICO
+              <span>MONEDA <b>PEN · S/</b></span>
+            </footer>
+          </div>
+        </section>
+      </main>
+
+      <footer id="siteFooter" class="site-footer">
+        TRABAJO FINAL DE JAVASCRIPT <span>·</span> CAJERO AUTOMÁTICO
+      </footer>
+    </div>
+  </body>
+</html>
